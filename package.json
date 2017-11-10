@@ -1,0 +1,19 @@
+{
+  "name": "meowify",
+  "version": "1.0.0",
+  "description": "To help you choose a song for a meow game.",
+  "main": "start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awiw642/meowify.git"
+  },
+  "author": "Aprianto Wiwarsono",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/awiw642/meowify/issues"
+  },
+  "homepage": "https://github.com/awiw642/meowify#readme"
+}
