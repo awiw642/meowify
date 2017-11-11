@@ -1,9 +1,9 @@
-require('dotenv').config({path: 'variables.env'});
+require('dotenv').config();
 
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const Promise = require('bluebird');
+const Spotify = require('node-spotify-api');
 const db = require('../database/db');
 const app = express();
 
@@ -40,6 +40,10 @@ app.get('/fetch', (req, res) => {
   })
 });
 
+app.get('/store', (req, res) => {
+  console.log(req.body);
+})
+
 app.post('/store', (req, res) => {
   db.save({
     artist: req.body.artist,
@@ -47,4 +51,18 @@ app.post('/store', (req, res) => {
     genre: req.body.genre
   })
   .then(res.send('Updated'));
+});
+
+app.post('/search', (req, res) => {
+  const spotify = new Spotify({
+    id: process.env.REACT_APP_SPOTIFY_CLIENT_ID,
+    secret: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET
+  });
+
+  spotify.search({type: 'track', query: 'all over you'}, (error, data) => {
+    if (error) {
+      console.log(error);
+    }
+    console.log(data.tracks.items);
+  })
 });
