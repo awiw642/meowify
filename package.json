@@ -26,8 +26,11 @@
     "webpack": "^3.8.1"
   },
   "dependencies": {
+    "bluebird": "^3.5.1",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
+    "jquery": "^3.2.1",
+    "mongoose": "^4.13.1",
     "react": "^16.1.0",
     "react-dom": "^16.1.0"
   }
