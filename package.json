@@ -4,8 +4,9 @@
   "description": "To help you choose a song for a meow game.",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon --inspect server/app.js",
-    "react": "webpack -d --watch"
+    "start": "node server/app.js",
+    "react": "webpack -d --watch",
+    "server-dev": "nodemon --inspect server/app.js"
   },
   "repository": {
     "type": "git",
@@ -33,5 +34,8 @@
     "mongoose": "^4.13.1",
     "react": "^16.1.0",
     "react-dom": "^16.1.0"
+  },
+  "engines": {
+    "node": "6.11.5"
   }
 }
