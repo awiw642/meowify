@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const src_dirname = path.join(__dirname + '/client/src');
-const dist_dirname = path.join(__dirname + '/dist/');
+const dist_dirname = path.join(__dirname + '/client/dist');
 
 
 module.exports = {
