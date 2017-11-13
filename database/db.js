@@ -5,8 +5,7 @@ mongoose.connect(process.env.DATABASE);
 
 const songSchema = new mongoose.Schema({
   artist: String,
-  title: String,
-  genre: String
+  title: String
 });
 
 let Song = mongoose.model('Song', songSchema);

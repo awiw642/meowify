@@ -1,31 +1,36 @@
 import React from 'react';
 
-const SongList = (props) => {
-  return (
+const SearchResults = (props) => {
+  let isSearched = props.isSearched;
+  if (isSearched) {
+    return (
       <div>
-        <h4> Saved Songs </h4>
         <table>
           <thead>
             <tr>
-              <td>Artists</td>
               <td>Title</td>
+              <td>Artists</td>
             </tr>
           </thead>
           <tbody>
-            {props.songs.map((song, index) => {
-              console.log(song);
+            {props.foundSongs.map((song) => {
               return (
                 <tr>
-                  <td>{song.artist}</td>
                   <td>{song.title}</td>
+                  <td>{song.artists.join(', ')}</td>
                 </tr>
               )
             })}
           </tbody>
-
         </table>
       </div>
     )
+  }
+  else {
+    return (
+      <div></div>
+    )
+  }
 }
 
-export default SongList;
+export default SearchResults;

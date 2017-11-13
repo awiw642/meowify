@@ -1,18 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
-import Store from './components/Store.jsx'
+import ReactDOM from 'react-dom';
+import Store from './components/Store.jsx';
 import SongList from './components/SongList.jsx';
 import Search from './components/Search.jsx';
-import $ from 'jquery'
+import SearchResults from './components/SearchResults.jsx';
+import $ from 'jquery';
 
 require('dotenv').config();
 
 const server = 'http://localhost'
+const port = '1130'
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      songs: []
+      songs: [],
+      savedSongs: [],
+      isSearched: false
     };
   }
 
@@ -21,49 +25,30 @@ class App extends React.Component {
   }
 
   fetch() {
-    $.get(`${server}:1130/fetch`, (data) => {
-      this.setState({songs: data});
+    $.get(`${server}:${port}/fetch`, (data) => {
+      this.setState({savedSongs: data});
     })
   }
 
-  search(artist, title, genre) {
-    const searchArtist = artist || '';
-    const searchTitle = title || '';
-    const searchGenre = genre || '';
-
-
-    $.post(`${server}:1130/search`, (data) => {
-      console.log(data);
-    })
-
-
-
-
-
-
-
-    /*const clientId = window.btoa('a0ae5fb0ac444d66a3228a2ab45d1135');
-    const clientSecret = window.btoa('71ba6da019d94885a2a8907460da0098');*/
-    // console.log(process.env.REACT_APP_SPOTIFY_CLIENT_ID);
-    $.ajaxSetup({
-      headers: {Authorization: `Basic ${clientId}:${clientSecret}`}
-    });
-    // Make an ajax request to spotify api here
+  search(keyword) {
     $.ajax({
-      url: 'https://accounts.spotify.com/api/token',
-      data: 'client_credentials',
-      success: function(data) {
-        console.log(data);
+      url: `${server}:${port}/search`,
+      type: 'POST',
+      data: {keyword: keyword},
+      success: (data) => {
+        this.setState({songs: data, isSearched: true});
       }
-    })
+    });
   }
 
   render() {
+    console.log(this.state.songs.artists);
     return (
       <div>
-        <Search search={this.search.bind(this)}/>
+        <Search songs={this.state.songs} search={this.search.bind(this)}/>
+        <SearchResults isSearched={this.state.isSearched} foundSongs={this.state.songs}/>
         <Store />
-        <SongList songs={this.state.songs}/>
+        <SongList songs={this.state.savedSongs}/>
       </div>
     )
   }
